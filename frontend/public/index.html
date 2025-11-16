@@ -1,44 +1,42 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Player Similarity</title>
-  </head>
-  <body>
-    <h1>Player Similarity — Offense & Defense</h1>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Player Similarity (Offense)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    .card { max-width: 720px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,.05); }
+    label { display:block; margin-top:12px; font-weight:600; }
+    input, select, button { padding:10px; width:100%; border:1px solid #ddd; border-radius:10px; }
+    button { margin-top:16px; cursor:pointer; }
+    pre { background:#0f172a; color:#e5e7eb; padding:16px; border-radius:12px; overflow:auto; }
+    .grid { display:grid; gap:12px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Offense Similarity Search</h1>
+
     <form id="f">
-      <label>Mode
-        <select name="mode" id="mode">
-          <option value="offense" selected>offense</option>
-          <option value="defense">defense</option>
-        </select>
-      </label><br>
-
-      <div id="offense-fields">
-        <label>passing_yards_pg <input name="passing_yards_pg" type="number" step="any" required></label><br>
-        <label>passing_tds_pg <input name="passing_tds_pg" type="number" step="any" required></label><br>
-        <label>ints_pg <input name="ints_pg" type="number" step="any" required></label><br>
-        <label>rushing_yards_pg <input name="rushing_yards_pg" type="number" step="any" required></label><br>
-        <label>rushing_tds_pg <input name="rushing_tds_pg" type="number" step="any" required></label><br>
-        <label>receiving_yards_pg <input name="receiving_yards_pg" type="number" step="any" required></label><br>
+      <input type="hidden" id="mode" value="offense" />
+      <div id="offense-fields" class="grid">
+        <div><label>Passing Yards / game<input name="passing_yards_pg" type="number" step="0.1" required></label></div>
+        <div><label>Passing TDs / game<input name="passing_tds_pg" type="number" step="0.1" required></label></div>
+        <div><label>INTs / game<input name="ints_pg" type="number" step="0.1" required></label></div>
+        <div><label>Rushing Yards / game<input name="rushing_yards_pg" type="number" step="0.1" required></label></div>
+        <div><label>Rushing TDs / game<input name="rushing_tds_pg" type="number" step="0.1" required></label></div>
+        <div><label>Receiving Yards / game<input name="receiving_yards_pg" type="number" step="0.1" required></label></div>
+        <div><label>k (neighbors)<input name="k" type="number" min="1" max="20" value="5"></label></div>
       </div>
-
-      <div id="defense-fields" style="display:none;">
-        <label>tackles_pg <input name="tackles_pg" type="number" step="any"></label><br>
-        <label>sacks_pg <input name="sacks_pg" type="number" step="any"></label><br>
-        <label>ints_pg <input name="ints_pg" type="number" step="any"></label><br>
-        <label>ff_pg <input name="ff_pg" type="number" step="any"></label><br>
-        <label>fr_pg <input name="fr_pg" type="number" step="any"></label><br>
-        <label>pd_pg <input name="pd_pg" type="number" step="any"></label><br>
-        <label>tfl_pg <input name="tfl_pg" type="number" step="any"></label><br>
-      </div>
-
-      <label>k <input name="k" type="number" value="5"></label><br>
-      <label>API URL <input id="api" type="url" placeholder="https://<cloud-run-url>"></label><br>
       <button type="submit">Find Similar Players</button>
     </form>
-    <pre id="out"></pre>
-    <script src="/src/app.js" type="module"></script>
-  </body>
+
+    <h3 style="margin-top:24px">Results</h3>
+    <pre id="out">—</pre>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
 </html>

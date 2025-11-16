@@ -2,10 +2,19 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from .similarity import SimilarityEngine
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Player Similarity API")
 
 _engines = {}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # swap to your site domain later for security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_engine(mode: str):
     if mode not in _engines:
