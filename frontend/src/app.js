@@ -6,7 +6,9 @@ const offenseFields = document.getElementById('offense-fields');
 const defenseFields = document.getElementById('defense-fields'); // optional section
 
 // Hardcode API for now (simplest). Remove the textbox-driven base to avoid confusion.
-const API_BASE = "https://player-sim-api-664678380310.us-central1.run.app";
+const API_BASE = "https://offense-backend-616432051288.us-central1.run.app";
+
+
 
 // Hide defense UI for now (since backend isn't ready)
 if (defenseFields) defenseFields.style.display = 'none';
